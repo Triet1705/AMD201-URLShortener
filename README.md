@@ -2,7 +2,8 @@
 Project for AMD201: Build a URL shortener service with .NET Core and a simple web front-end
 # [cite_start]Project: Xây dựng dịch vụ rút gọn URL (URL Shortener) 
 
-Dự án này được thực hiện trong khuôn khổ môn học AMD201. [cite_start]Mục tiêu là thiết kế và triển khai một dịch vụ rút gọn URL sử dụng .NET Core, bao gồm backend, API và một giao diện web đơn giản để demo chức năng.
+Dự án này được thực hiện trong khuôn khổ môn học AMD201. 
+# [cite_start]Mục tiêu là thiết kế và triển khai một dịch vụ rút gọn URL sử dụng .NET Core, bao gồm backend, API và một giao diện web đơn giản để demo chức năng.
 
 ## [cite_start]Thành viên nhóm 
 
