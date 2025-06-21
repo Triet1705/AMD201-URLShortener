@@ -13,17 +13,17 @@ Dự án này được thực hiện trong khuôn khổ môn học AMD201.
 ## Công nghệ sử dụng
 
 * **Backend:** .NET 8, ASP.NET Core Web API
-* [cite_start]**Database:** PostgreSQL
+* [cite_start]**Database:** MySQL
 * **ORM:** Entity Framework Core
-* [cite_start]**Frontend:** ASP.NET Core MVC / Razor Pages
+* [cite_start]**Frontend:** ASP.NET Core Razor Pages
 
 ## Hướng dẫn cài đặt và chạy dự án (Getting Started)
 
 ### Yêu cầu tiên quyết
 
-* Cài đặt .NET SDK (phiên bản 8.0 hoặc cao hơn).
-* Cài đặt [Tên hệ quản trị CSDL, ví dụ: SQL Server 2019].
-* Một IDE/Editor như Visual Studio 2022 hoặc VS Code.
+* Install .NET SDK version 8.0.6.
+* Install [Tên hệ quản trị CSDL, ví dụ: SQL Server 2019].
+* IDE Visual Studio 2022.
 
 ### Các bước cài đặt
 
