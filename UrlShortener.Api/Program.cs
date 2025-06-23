@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using UrlShortener.Application.Interfaces;
 using UrlShortener.Infrastructure.Persistence;
+using UrlShortener.Application.Services;
 
 namespace UrlShortener.Api
 {
@@ -11,6 +13,8 @@ namespace UrlShortener.Api
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+            builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+
 
             // Add services to the container.
 
@@ -18,6 +22,8 @@ namespace UrlShortener.Api
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<IUrlShorteningService, UrlShorteningService>();
 
             var app = builder.Build();
 

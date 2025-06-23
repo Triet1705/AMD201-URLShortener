@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UrlShortener.Domain.Entities;
-
+using UrlShortener.Application.Interfaces;
 
 namespace UrlShortener.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
