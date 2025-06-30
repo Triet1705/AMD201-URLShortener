@@ -21,15 +21,28 @@ namespace UrlShortener.Api.Controllers
 
             var response = new ShortenedUrlResponse
             {
-                ShortUrl = $"http://short-ly/{shortenedUrl.ShortCode}",
+                ShortUrl = $"{Request.Scheme}://{Request.Host}/{shortenedUrl.ShortCode}",
             };
             return Ok(response);
+        }
+
+        [HttpGet("/{shortCode}")]
+        public async Task<IActionResult> RedirectShortUrl(string shortCode)
+        {
+            var shortenedUrl = await _service.GetByShortCodeAsync(shortCode);
+
+            if (shortenedUrl == null)
+            {
+                return NotFound("Short URL not found.");
+            }
+            return Redirect(shortenedUrl.LongUrl);
         }
     }
     public class ShortenUrlRequest
     {
         public string LongUrl { get; set; } = string.Empty;
     }
+
 
     public class ShortenedUrlResponse
     {
