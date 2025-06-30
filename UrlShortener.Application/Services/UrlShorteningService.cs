@@ -44,5 +44,11 @@ namespace UrlShortener.Application.Services
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+
+            //Redirect(Jukain)
+        public async Task<ShortenedUrl?> GetByShortCodeAsync(string shortCode)
+        {
+            return await _context.ShortenedUrls.FirstOrDefaultAsync(u => u.ShortCode == shortCode);
+        }
     }
 }
