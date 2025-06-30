@@ -31,7 +31,9 @@
     <div class="boxs" id="result-box">
         <label class="box-title">Shortened URL</label>
         <div class="custom-input-group">
-            <input id="shortUrlOutput" class="url-input" value="@Model.ShortenedUrlResult" readonly />
+            <a href="@Model.ShortenedUrlResult" target="_blank" class="result-link">
+                @Model.ShortenedUrlResult
+            </a>
             <button class="button customize-copy" type="button">
                 Copy
             </button>

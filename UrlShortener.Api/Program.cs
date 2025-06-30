@@ -19,10 +19,16 @@ namespace UrlShortener.Api
             // Add services to the container.
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "Chibi Link API",
+                    Version = "v1",
+                    Description = "API for shortening URLs"
+                });
+            });
             builder.Services.AddScoped<IUrlShorteningService, UrlShorteningService>();
 
             var app = builder.Build();
@@ -31,13 +37,15 @@ namespace UrlShortener.Api
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "UrlShortener.Api v1");
+                });
             }
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
