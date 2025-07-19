@@ -29,6 +29,15 @@ namespace UrlShortener.Api
                     Description = "API for shortening URLs"
                 });
             });
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.WithOrigins("http://localhost:5173")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
             builder.Services.AddScoped<IUrlShorteningService, UrlShorteningService>();
 
             var app = builder.Build();
@@ -44,6 +53,8 @@ namespace UrlShortener.Api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
