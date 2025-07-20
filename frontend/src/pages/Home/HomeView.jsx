@@ -11,6 +11,7 @@ function HomeView() {
   const [isCustomizeOn, setIsCustomizeOn] = useState(false);
   const [customCode, setCustomCode] = useState("");
   const [shortenedUrl, setShortenedUrl] = useState("");
+  const [copyButtonText, setCopyButtonText] = useState("Copy");
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
@@ -33,7 +34,18 @@ function HomeView() {
       console.error("API call failed:", err);
     }
   };
-
+  const handleCopy = () => {
+    if (shortenedUrl) {
+      navigator.clipboard
+        .writeText(shortenedUrl)
+        .then(() => {
+          setTimeout(() => setCopyButtonText("Copy"), 2000);
+        })
+        .catch((err) => {
+          console.error("Failed to copy text: ", err);
+        });
+    }
+  };
   return (
     <div className="home-container">
       <form onSubmit={handleSubmit}>
@@ -80,9 +92,18 @@ function HomeView() {
         <Box className="result-box">
           <div className="form-container">
             <label className="box-title">Shortened URL</label>
-            <div className="custom-input-group">
-              <InputForm value={shortenedUrl} readOnly />
-              <Button type="button">Copy</Button>
+            <div className="result-group">
+              <a
+                href={shortenedUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="result-link"
+              >
+                {shortenedUrl}
+              </a>
+              <Button type="button" onClick={handleCopy}>
+                Copy
+              </Button>
             </div>
           </div>
         </Box>
