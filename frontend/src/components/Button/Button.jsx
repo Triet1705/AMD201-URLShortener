@@ -1,12 +1,12 @@
 import React from "react";
 import "./Button.css";
 
-function Button({ className, children }) {
+function Button({ className, children, ...rest }) {
   const buttonClassName = `button ${className || ""}`;
   return (
-    <div className={buttonClassName}>
+    <button className={buttonClassName} {...rest}>
       <div className="buttonText">{children}</div>
-    </div>
+    </button>
   );
 }
 

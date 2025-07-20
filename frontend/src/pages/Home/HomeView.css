@@ -54,6 +54,31 @@
 .custom-input-group .inputForm.customize {
   border-radius: 0 20px 20px 0;
 }
+.result-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.result-link {
+  flex-grow: 1;
+  height: 50px;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #fff;
+  border: 1px solid #999;
+  border-radius: 10px;
+  color: #333;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.result-link:hover {
+  text-decoration: underline;
+}
 
 .button-action {
   display: flex;

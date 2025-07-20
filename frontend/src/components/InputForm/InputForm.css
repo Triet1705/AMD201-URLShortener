@@ -1,8 +1,11 @@
 .inputForm {
-  border-radius: 20px;
+  border-radius: 10px;
   border: 1px solid #000;
-  background: #eef1da;
+  background: #fff;
   height: 50px;
   color: #1d4360;
   width: 100%;
+  padding: 10px 20px;
+  font-size: 18px;
+  box-sizing: border-box;
 }
