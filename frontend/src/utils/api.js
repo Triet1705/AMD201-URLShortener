@@ -1,4 +1,4 @@
-const API_URL_BASE = "https://localhost:7001/api";
+const API_URL_BASE = "https://localhost:7037/api";
 
 export const shortenUrlApi = async (longUrl) => {
   const endpoint = `${API_URL_BASE}/urls`;
@@ -13,5 +13,5 @@ export const shortenUrlApi = async (longUrl) => {
   if (!response.ok) {
     throw new Error(`API call failed with status: ${response.status}`);
   }
-  return await reponse.json();
+  return await response.json();
 };
