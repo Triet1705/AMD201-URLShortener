@@ -4,17 +4,34 @@ import InputForm from "../../components/InputForm/InputForm";
 import Button from "../../components/Button/Button";
 import "./HomeView.css";
 import Switch from "../../components/Switch/Switch";
+import { shortenUrlApi } from "../../utils/api";
 
 function HomeView() {
   const [longUrl, setLongUrl] = useState("");
   const [isCustomizeOn, setIsCustomizeOn] = useState(false);
   const [customCode, setCustomCode] = useState("");
   const [shortenedUrl, setShortenedUrl] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Submitting:", { longUrl, customCode });
-    setShortenedUrl("https://short-ly/xyz123");
+    setError("");
+    setShortenedUrl("");
+
+    try {
+      const data = await shortenUrlApi(
+        longUrl,
+        isCustomizeOn ? customCode : null
+      );
+
+      setShortenedUrl(data.shortUrl);
+      setLongUrl("");
+      setCustomCode("");
+      setIsCustomizeOn(false);
+    } catch (err) {
+      setError("Failed to shorten the URL. Please try again.");
+      console.error("API call failed:", err);
+    }
   };
 
   return (
