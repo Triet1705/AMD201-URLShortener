@@ -10,6 +10,7 @@ namespace UrlShortener.Infrastructure.Persistence
         {
         }
         public DbSet<ShortenedUrl> ShortenedUrls { get; set; }
+        public DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ShortenedUrl>(builder =>

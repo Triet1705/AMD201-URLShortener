@@ -15,3 +15,40 @@ export const shortenUrlApi = async (longUrl) => {
   }
   return await response.json();
 };
+export const registerApi = async (username, password) => {
+  const endpoint = `${API_URL_BASE}/auth/register`;
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Registration failed.");
+  }
+
+  return { success: true };
+};
+
+export const loginApi = async (username, password) => {
+  const endpoint = `${API_URL_BASE}/auth/login`;
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Invalid credentials.");
+  }
+
+  return await response.json();
+};
