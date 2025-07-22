@@ -15,6 +15,7 @@ namespace UrlShortener.Api
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
             builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+            builder.Services.AddScoped<IUrlShorteningService, UrlShorteningService>();
 
 
             // Add services to the container.
@@ -22,6 +23,7 @@ namespace UrlShortener.Api
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddHttpClient();
+            builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
