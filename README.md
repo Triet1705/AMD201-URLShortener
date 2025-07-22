@@ -1,82 +1,107 @@
-# AMD201-URLShortener
-Project for AMD201: Build a URL shortener service with .NET Core and a simple web front-end
-# [cite_start]Project: Xây dựng dịch vụ rút gọn URL (URL Shortener) 
+Chibi Link (AMD201-URLShortener)
+Dự án được thực hiện trong khuôn khổ môn học AMD201. Mục tiêu là thiết kế và triển khai một dịch vụ rút gọn URL hoàn chỉnh, sử dụng kiến trúc decoupled với .NET Core cho backend và React cho frontend.
 
-Dự án này được thực hiện trong khuôn khổ môn học AMD201. 
-# [cite_start]Mục tiêu là thiết kế và triển khai một dịch vụ rút gọn URL sử dụng .NET Core, bao gồm backend, API và một giao diện web đơn giản để demo chức năng.
+Thành viên nhóm
+Pham Minh Triet - GCD230291
 
-## [cite_start]Thành viên nhóm 
+Nguyen Dinh Hoang Vu - GCD230066
 
-* Pham Minh Triet - GCD230291
-* Nguyen Dinh Hoang Vu - GCD230066
+Công nghệ sử dụng
+Backend: .NET 8, ASP.NET Core Web API, Clean Architecture
 
-## Công nghệ sử dụng
+Database: PostgreSQL
 
-* **Backend:** .NET 8, ASP.NET Core Web API
-* [cite_start]**Database:** MySQL
-* **ORM:** Entity Framework Core
-* [cite_start]**Frontend:** ASP.NET Core Razor Pages
+ORM: Entity Framework Core
 
-## Hướng dẫn cài đặt và chạy dự án (Getting Started)
+Xác thực: JWT (JSON Web Tokens)
 
-### Yêu cầu tiên quyết
+Frontend: React (Vite), JavaScript, React Router
 
-* Install .NET SDK version 8.0.6.
-* Install [Tên hệ quản trị CSDL, ví dụ: SQL Server 2019].
-* IDE Visual Studio 2022.
+UI Library: Ant Design
 
-### Các bước cài đặt
+Hướng dẫn cài đặt và chạy dự án (Getting Started)
+Dự án được cấu trúc theo dạng monorepo với hai thư mục chính là backend và frontend.
 
-1.  **Clone repository về máy:**
-    ```bash
-    git clone <URL-repository-cua-ban>
-    cd <ten-thu-muc-du-an>
-    ```
+Yêu cầu tiên quyết
+Cài đặt .NET SDK phiên bản 8.0 trở lên.
 
-2.  **Cấu hình chuỗi kết nối (Connection String):**
-    * Trong project backend, tìm và mở file `appsettings.json`.
-    * Tạo một file mới tên là `appsettings.Development.json` trong cùng thư mục.
-    * Copy nội dung cấu trúc `ConnectionStrings` từ `appsettings.json` và dán vào `appsettings.Development.json`. Thay đổi giá trị để trỏ tới database local của bạn.
-    * *Lưu ý: File `appsettings.Development.json` đã được thêm vào `.gitignore` và sẽ không bị commit.*
+Cài đặt Node.js phiên bản 18.x trở lên.
 
-3.  **Áp dụng Database Migrations:**
-    Mở terminal trong thư mục của project backend và chạy lệnh sau để tạo cơ sở dữ liệu và các bảng cần thiết:
-    ```bash
-    dotnet ef database update
-    ```
+Cài đặt PostgreSQL Server.
 
-4.  **Chạy dự án:**
-    Sử dụng Visual Studio để mở file `.sln` và nhấn F5, hoặc chạy lệnh sau từ terminal:
-    ```bash
-    dotnet run
-    ```
-    Ứng dụng sẽ chạy tại `https://localhost:<port>` và `http://localhost:<port>`.
+IDE: Visual Studio 2022 (cho backend) và Visual Studio Code (cho frontend).
 
-## [cite_start]Các chức năng chính và API Endpoints 
+Các bước cài đặt
+Clone repository về máy:
 
-Hệ thống cung cấp các RESTful API để tạo và truy xuất link rút gọn.
+git clone <URL-repository-cua-ban>
+cd AMD201-URLShortener
 
-### 1. Tạo link rút gọn
+Cấu hình Backend:
 
-* **Endpoint:** `POST /api/shorten`
-* **Request Body:**
-    ```json
-    {
-      "longUrl": "[https://example.com/day-la-mot-url-rat-dai-can-duoc-rut-gon](https://example.com/day-la-mot-url-rat-dai-can-duoc-rut-gon)"
-    }
-    ```
-* **Success Response (200 OK):**
-    ```json
-    {
-      "shortUrl": "[https://your-domain.com/abcdef](https://your-domain.com/abcdef)"
-    }
-    ```
+Mở file solution backend/UrlShortener.sln bằng Visual Studio 2022.
 
-### 2. Chuyển hướng (Redirect)
+Trong project UrlShortener.Api, mở file appsettings.Development.json.
 
-* **Endpoint:** `GET /{shortCode}`
-* [cite_start]**Mô tả:** Truy cập vào link rút gọn (ví dụ: `https://your-domain.com/abcdef`) sẽ trả về một HTTP 302 Redirect tới URL gốc.
+Cập nhật ConnectionStrings để trỏ tới database PostgreSQL local của bạn.
 
----
+"ConnectionStrings": {
+  "DefaultConnection": "Host=localhost;Database=chibi_link_db;Username=postgres;Password=your_password"
+}
 
-Bằng cách chuẩn bị hai file này, bạn không chỉ cho thấy sự chuyên nghiệp mà còn giúp quá trình làm việc nhóm trở nên suôn sẻ hơn rất nhiều. Chúc nhóm bạn làm bài tốt!
+Mở terminal, di chuyển vào thư mục backend và chạy lệnh sau để tạo cơ sở dữ liệu:
+
+dotnet ef database update --startup-project UrlShortener.Api
+
+Cấu hình Frontend:
+
+Mở thư mục frontend bằng Visual Studio Code.
+
+Mở terminal trong VS Code và chạy lệnh để cài đặt các gói phụ thuộc:
+
+npm install
+
+Chạy dự án:
+
+Chạy Backend: Trong Visual Studio 2022, thiết lập UrlShortener.Api làm Startup Project và nhấn F5. API sẽ chạy tại https://localhost:<port> (ví dụ: 7037).
+
+Chạy Frontend: Trong terminal của VS Code (ở thư mục frontend), chạy lệnh:
+
+npm run dev
+
+Ứng dụng frontend sẽ chạy tại http://localhost:5173.
+
+Các chức năng chính và API Endpoints
+Hệ thống cung cấp các RESTful API cho việc rút gọn link và xác thực người dùng.
+
+1. Rút gọn URL
+Endpoint: POST /api/urls
+
+Mô tả: Tạo một link rút gọn mới.
+
+Request Body:
+
+{
+  "longUrl": "https://example.com/a-very-long-url-to-be-shortened",
+  "customCode": "my-custom-link" // (Optional)
+}
+
+Success Response (200 OK):
+
+{
+  "shortUrl": "https://localhost:7037/xyz123"
+}
+
+2. Chuyển hướng (Redirect)
+Endpoint: GET /{shortCode}
+
+Mô tả: Truy cập vào link rút gọn (ví dụ: https://localhost:7037/xyz123) sẽ trả về một HTTP 301/302 Redirect tới URL gốc.
+
+3. Xác thực (Authentication)
+Endpoint: POST /api/auth/register
+
+Mô tả: Đăng ký một tài khoản người dùng mới.
+
+Endpoint: POST /api/auth/login
+
+Mô tả: Đăng nhập và trả về một JWT token.
