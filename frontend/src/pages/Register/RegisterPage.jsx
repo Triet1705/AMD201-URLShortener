@@ -1,10 +1,9 @@
 import React from "react";
 import Button from "../../components/Button/Button";
-import InputForm from "../../components/InputForm/InputForm";
 import Box from "../../components/Box/Box";
-import "./LoginPage.css";
+import InputForm from "../../components/InputForm/InputForm";
 
-function LoginPage() {
+function RegisterPage() {
   return (
     <div className="container">
       <Box>
@@ -17,10 +16,14 @@ function LoginPage() {
             <label className="text-title">Password</label>
             <InputForm />
           </div>
+          <div className="group">
+            <label className="text-title">Reenter Password</label>
+            <InputForm />
+          </div>
           <div className="action-group">
-            <Button>Login</Button>
+            <Button>Register</Button>
             <p>
-              Don't have an account yet? <a href="/register">Register</a>
+              Already have an account? <a href="/login">Login</a>
             </p>
           </div>
         </div>
@@ -29,4 +32,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;
