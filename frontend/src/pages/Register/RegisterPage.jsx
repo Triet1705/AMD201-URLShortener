@@ -5,6 +5,7 @@ import InputForm from "../../components/InputForm/InputForm";
 import { Link, useNavigate } from "react-router-dom";
 import { registerApi } from "../../utils/api";
 import { message } from "antd";
+import { validatePasswordLength } from "../../utils/validators";
 
 function RegisterPage() {
   const [username, setUsername] = useState("");
@@ -18,13 +19,18 @@ function RegisterPage() {
     setError("");
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match. Please try again.");
+      setError("Mật khẩu nhập lại không khớp.");
       return;
     }
 
+    const passwordValidation = validatePasswordLength(password);
+    if (!passwordValidation.isValid) {
+      setError(passwordValidation.message);
+      return;
+    }
     try {
       await registerApi(username, password);
-      message.success("Registration successful! Please log in.");
+      message.success("Đăng ký thành công! Vui lòng đăng nhập.");
       navigate("/login");
     } catch (err) {
       setError(err.message);
@@ -65,6 +71,7 @@ function RegisterPage() {
               required
             />
           </div>
+          {error && <p className="error-message">{error}</p>}
           <div className="action-group">
             <Button>Register</Button>
             <p>

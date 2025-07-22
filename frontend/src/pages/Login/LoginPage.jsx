@@ -55,6 +55,7 @@ function LoginPage() {
               required
             />
           </div>
+          {error && <p className="error-message">{error}</p>}
           <div className="action-group">
             <Button>Login</Button>
             <p>
