@@ -43,3 +43,11 @@
   font-size: 20px;
   font-weight: 500;
 }
+.logout-button {
+  background-color: transparent;
+  border: none;
+  color: #1d4360;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}

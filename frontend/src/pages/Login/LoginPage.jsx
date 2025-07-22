@@ -21,6 +21,7 @@ function LoginPage() {
       localStorage.setItem("jwt_token", data.token);
       message.success("Login successful!");
       navigate("/");
+      window.location.reload();
     } catch (error) {
       setError(error.message);
       message.error("Login failed: " + error.message);
