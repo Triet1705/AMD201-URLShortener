@@ -15,3 +15,13 @@
 body {
   margin: 0;
 }
+.error-message {
+  color: #d8000c;
+  /* background-color: #ffd2d2; */
+  /* border: 1px solid #d8000c; */
+  /* border-radius: 5px; */
+  /* padding: 10px; */
+  /* margin-top: 15px; */
+  text-align: center;
+  font-weight: 500;
+}

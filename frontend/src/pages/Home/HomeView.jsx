@@ -80,7 +80,7 @@ function HomeView() {
                 />
               </div>
             )}
-
+            {error && <p className="error-message">{error}</p>}
             <div className="button-action">
               <Button type="submit">Shorten URL</Button>
             </div>
