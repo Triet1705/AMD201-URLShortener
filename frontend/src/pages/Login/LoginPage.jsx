@@ -5,6 +5,7 @@ import Box from "../../components/Box/Box";
 import "./LoginPage.css";
 import { Link, useNavigate } from "react-router-dom";
 import { loginApi } from "../../utils/api";
+import { message } from "antd";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
@@ -17,12 +18,12 @@ function LoginPage() {
     setError("");
     try {
       const data = await loginApi(username, password);
-      localStorage.setItem("jwtToken", data.token);
-      alert("Login successful!");
+      localStorage.setItem("jwt_token", data.token);
+      message.success("Login successful!");
       navigate("/");
     } catch (error) {
       setError(error.message);
-      console.error("Login failed: ", error);
+      message.error("Login failed: " + error.message);
     }
     console.log("Logging in with:", { username, password });
   };

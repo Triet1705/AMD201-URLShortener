@@ -4,6 +4,7 @@ import Box from "../../components/Box/Box";
 import InputForm from "../../components/InputForm/InputForm";
 import { Link, useNavigate } from "react-router-dom";
 import { registerApi } from "../../utils/api";
+import { message } from "antd";
 
 function RegisterPage() {
   const [username, setUsername] = useState("");
@@ -23,12 +24,11 @@ function RegisterPage() {
 
     try {
       await registerApi(username, password);
-
-      alert("Registration successful! Please log in.");
+      message.success("Registration successful! Please log in.");
       navigate("/login");
     } catch (err) {
       setError(err.message);
-      console.error("Registration failed: ", err);
+      message.error(err.message);
     }
   };
   return (
