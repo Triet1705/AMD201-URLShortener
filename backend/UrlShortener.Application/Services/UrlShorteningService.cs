@@ -73,8 +73,39 @@ namespace UrlShortener.Application.Services
                 return false;
             }
         }
+        public async Task<UrlDetailsData?> GetUrlDetailsAsync(string shortCode)
+        {
+            var shortenedUrl = await _context.ShortenedUrls
+                .FirstOrDefaultAsync(u => u.ShortCode == shortCode);
 
-            //Redirect(Jukain)
+            if (shortenedUrl == null) return null;
+
+            var client = _httpClientFactory.CreateClient();
+            var html = await client.GetStringAsync(shortenedUrl.LongUrl);
+
+            var htmlDoc = new HtmlAgilityPack.HtmlDocument();
+            htmlDoc.LoadHtml(html);
+
+            var title = htmlDoc.DocumentNode.SelectSingleNode("//meta[@property='og:title']")
+                ?.GetAttributeValue("content", "");
+
+            var description = htmlDoc.DocumentNode.SelectSingleNode("//meta[@property='og:description']")
+                ?.GetAttributeValue("content", "");
+
+            var imageUrl = htmlDoc.DocumentNode.SelectSingleNode("//meta[@property='og:image']")
+                ?.GetAttributeValue("content", "");
+
+            return new UrlDetailsData
+            {
+                ShortCode = shortenedUrl.ShortCode,
+                LongUrl = shortenedUrl.LongUrl,
+                CreatedAtUtc = shortenedUrl.CreatedAtUtc,
+                Title = title,
+                Description = description,
+                ImageUrl = imageUrl
+            };
+        }
+        //Redirect(Jukain)
         public async Task<ShortenedUrl?> GetByShortCodeAsync(string shortCode)
         {
             return await _context.ShortenedUrls.FirstOrDefaultAsync(u => u.ShortCode == shortCode);
