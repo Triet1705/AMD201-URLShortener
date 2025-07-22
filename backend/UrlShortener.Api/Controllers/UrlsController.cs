@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using UrlShortener.Application.Interfaces;
+using UrlShortener.Api.DTOs;
 
 
 namespace UrlShortener.Api.Controllers
@@ -32,18 +33,27 @@ namespace UrlShortener.Api.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-
-        [HttpGet("/{shortCode}")]
-        public async Task<IActionResult> RedirectShortUrl(string shortCode)
+        [HttpGet("{shortCode}")]
+        public async Task<IActionResult> GetUrlDetails(string shortCode)
         {
-            var shortenedUrl = await _service.GetByShortCodeAsync(shortCode);
-
-            if (shortenedUrl == null)
+            var urlDetailsData = await _service.GetUrlDetailsAsync(shortCode);
+            if (urlDetailsData == null)
             {
-                return NotFound("Short URL not found.");
+                return NotFound();
             }
-            return Redirect(shortenedUrl.LongUrl);
+
+            var responseDto = new UrlDetailsDto
+            {
+                ShortCode = urlDetailsData.ShortCode,
+                LongUrl = urlDetailsData.LongUrl,
+                Title = urlDetailsData.Title,
+                Description = urlDetailsData.Description,
+                ImageUrl = urlDetailsData.ImageUrl,
+                CreatedAtUtc = urlDetailsData.CreatedAtUtc,
+            };
+            return Ok(responseDto);
         }
+
     }
     public class ShortenUrlRequest
     {
