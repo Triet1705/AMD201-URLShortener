@@ -52,3 +52,24 @@ export const loginApi = async (username, password) => {
 
   return await response.json();
 };
+
+export const getUrlDetailsApi = async (shortCode) => {
+  const token = localStorage.getItem("jwt_token");
+  const endpoint = `${API_URL_BASE}/urls/${shortCode}`;
+
+  const response = await fetch(endpoint, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    if (response.status === 404) {
+      throw new Error("URL not found.");
+    }
+    throw new Error("API call failed with status:" + response.status);
+  }
+  return await response.json();
+};
