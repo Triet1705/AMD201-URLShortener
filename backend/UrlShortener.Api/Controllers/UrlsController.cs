@@ -1,4 +1,4 @@
-﻿using Azure;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using UrlShortener.Application.Interfaces;
@@ -9,6 +9,7 @@ namespace UrlShortener.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UrlsController : ControllerBase
     {
         private readonly IUrlShorteningService _service;
