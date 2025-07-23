@@ -5,6 +5,8 @@ import Button from "../../components/Button/Button";
 import "./HomeView.css";
 import Switch from "../../components/Switch/Switch";
 import { shortenUrlApi } from "../../utils/api";
+import { message } from "antd";
+import { validateUrlFormat } from "../../utils/validators";
 
 function HomeView() {
   const [longUrl, setLongUrl] = useState("");
@@ -15,6 +17,12 @@ function HomeView() {
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
+    // const isValid = validateUrlFormat(longUrl);
+    // if (!isValid) {
+    //   setError("Invalid URL format");
+    //   message.error("Invalid URL format");
+    //   return;
+    // }
     event.preventDefault();
     setError("");
     setShortenedUrl("");
@@ -31,19 +39,17 @@ function HomeView() {
       setIsCustomizeOn(false);
     } catch (err) {
       setError("Failed to shorten the URL. Please try again.");
-      console.error("API call failed:", err);
+      message.error("API call failed:" + err.message);
     }
   };
   const handleCopy = () => {
     if (shortenedUrl) {
-      navigator.clipboard
-        .writeText(shortenedUrl)
-        .then(() => {
-          setTimeout(() => setCopyButtonText("Copy"), 2000);
-        })
-        .catch((err) => {
-          console.error("Failed to copy text: ", err);
-        });
+      navigator.clipboard.writeText(shortenedUrl).then(() => {
+        setTimeout(() => setCopyButtonText("Copy"), 2000);
+      });
+      message.success("Shortened URL copied to clipboard!").catch((err) => {
+        message.error("Failed to copy text: " + err.message);
+      });
     }
   };
   return (
