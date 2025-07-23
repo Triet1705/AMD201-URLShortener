@@ -1,12 +1,20 @@
 const API_URL_BASE = "https://localhost:7037/api";
 
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("jwt_token");
+  return {
+    "Content-Type": "application/json",
+    Authorization: token ? `Bearer ${token}` : "",
+  };
+};
+
 export const shortenUrlApi = async (longUrl) => {
   const endpoint = `${API_URL_BASE}/urls`;
   const requestBody = { longUrl };
 
   const response = await fetch(endpoint, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(requestBody),
   });
 
@@ -59,10 +67,7 @@ export const getUrlDetailsApi = async (shortCode) => {
 
   const response = await fetch(endpoint, {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+    headers: getAuthHeaders(),
   });
 
   if (!response.ok) {
