@@ -17,13 +17,13 @@ function HomeView() {
   const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
-    // const isValid = validateUrlFormat(longUrl);
-    // if (!isValid) {
-    //   setError("Invalid URL format");
-    //   message.error("Invalid URL format");
-    //   return;
-    // }
     event.preventDefault();
+    const urlValidation = validateUrlFormat(longUrl);
+    if (!urlValidation.isValid) {
+      setError(urlValidation.message);
+      message.error(urlValidation.message);
+      return;
+    }
     setError("");
     setShortenedUrl("");
 
@@ -59,7 +59,7 @@ function HomeView() {
           <div className="form-container">
             <label className="box-title">Paste your long URL</label>
             <InputForm
-              type="url"
+              // type="url"
               placeholder="https://example.com/your-very-long-url"
               value={longUrl}
               onChange={(e) => setLongUrl(e.target.value)}
