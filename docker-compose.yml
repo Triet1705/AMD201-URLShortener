@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   postgres-db:
     image: postgres:14-alpine
@@ -14,28 +15,28 @@ services:
     restart: unless-stopped
 
   backend-api:
-  container_name: chibi_link_backend_api
-  build:
-    context: .
-    dockerfile: Dockerfile.backend
-  ports:
-    - "7001:8001"
-  environment:
-  ASPNETCORE_ENVIRONMENT: Development
-  ASPNETCORE_URLS: "https://+:8081;http://+:8080"
-  ConnectionStrings__DefaultConnection: "Host=postgres-db;Port=5432;Database=chibi_link_db;Username=chibiuser;Password=chibipassword;"
-  Jwt__Issuer: "https://localhost:7001"
-  Jwt__Audience: "https://localhost:7001"
-  Jwt__SecretKey: "DAY_LA_MOT_CHUOI_BI_MAT_RAT_DAI_VA_AN_TOAN_HAY_THAY_THE_NO"
-  depends_on:
-    - postgres-db
-  restart: unless-stopped
+    container_name: chibi_link_backend_api
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "7001:8081"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: "http://+:8080"
+      ConnectionStrings__DefaultConnection: "Host=postgres-db;Port=5432;Database=chibi_link_db;Username=chibiuser;Password=chibipassword;"
+      Jwt__Issuer: "https://localhost:7001"
+      Jwt__Audience: "https://localhost:7001"
+      Jwt__SecretKey: "DAY_LA_MOT_CHUOI_BI_MAT_RAT_DAI_VA_AN_TOAN_HAY_THAY_THE_NO"
+    depends_on:
+      - postgres-db
+    restart: unless-stopped
 
   frontend-web:
     container_name: chibi_link_frontend_web
     build:
-      context: .
-      dockerfile: Dockerfile.frontend
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "5173:80"
     depends_on:
