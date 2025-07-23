@@ -44,7 +44,7 @@ function PreviewPage() {
       <Box>
         <form onSubmit={handleSubmit} className="form-container">
           <div className="group">
-            <label className="text-title">Shortened URL</label>
+            <label className="text-title">Short Code</label>
             <InputForm
               placeholder="Nhập link rút gọn hoặc mã code..."
               value={shortCode}
