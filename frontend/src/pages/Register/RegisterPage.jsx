@@ -30,7 +30,7 @@ function RegisterPage() {
     }
     try {
       await registerApi(username, password);
-      message.success("Đăng ký thành công! Vui lòng đăng nhập.");
+      message.success("Register successful! Please log in.");
       navigate("/login");
     } catch (err) {
       setError(err.message);
