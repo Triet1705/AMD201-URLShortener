@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import "./App.css";
+import "@ant-design/v5-patch-for-react-19";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
