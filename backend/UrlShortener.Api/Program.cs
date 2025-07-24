@@ -1,8 +1,11 @@
+
 using Microsoft.EntityFrameworkCore;
 using UrlShortener.Application.Interfaces;
 using UrlShortener.Infrastructure.Persistence;
 using UrlShortener.Application.Services;
 using Npgsql.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace UrlShortener.Api
 {
@@ -44,6 +47,21 @@ namespace UrlShortener.Api
             });
             builder.Services.AddScoped<IUrlShorteningService, UrlShorteningService>();
 
+            builder.Services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                        ValidAudience = builder.Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]))
+                    };
+                });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -59,6 +77,8 @@ namespace UrlShortener.Api
             app.UseHttpsRedirection();
 
             app.UseCors();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
