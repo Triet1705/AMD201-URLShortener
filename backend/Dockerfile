@@ -18,6 +18,7 @@ RUN dotnet publish -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/publish .
+COPY aspnetapp.pfx /https/aspnetapp.pfx
 EXPOSE 8080
 EXPOSE 8081
 ENTRYPOINT ["dotnet", "UrlShortener.Api.dll"]

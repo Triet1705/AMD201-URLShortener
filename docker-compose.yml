@@ -20,13 +20,15 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "7001:8081"
+      - "7037:8081"
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ASPNETCORE_URLS: "http://+:8080"
+      ASPNETCORE_URLS: "https://+:8081;http://+:8080"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: "Password"
+      ASPNETCORE_Kestrel__Certificates__Default__Path: "/https/aspnetapp.pfx"
       ConnectionStrings__DefaultConnection: "Host=postgres-db;Port=5432;Database=chibi_link_db;Username=chibiuser;Password=chibipassword;"
-      Jwt__Issuer: "https://localhost:7001"
-      Jwt__Audience: "https://localhost:7001"
+      Jwt__Issuer: "https://localhost:7037"
+      Jwt__Audience: "https://localhost:7037"
       Jwt__SecretKey: "DAY_LA_MOT_CHUOI_BI_MAT_RAT_DAI_VA_AN_TOAN_HAY_THAY_THE_NO"
     depends_on:
       - postgres-db
